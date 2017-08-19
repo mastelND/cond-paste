@@ -10,10 +10,10 @@ function split {
 }
 
 function paste {
-	window="^Crypt of the NecroDancer$"
-	delay=50
-	windowid=$(xdotool search --name "$window")
-	input=$(split $(normalize "$1"))
+	local window="^Crypt of the NecroDancer$"
+	local delay=50
+	local windowid=$(xdotool search --name "$window")
+	local input=$(split $(normalize "$1"))
 	echo $input | xargs xdotool key --window $windowid --delay $delay
 }
 
