@@ -1,15 +1,21 @@
 #!/bin/sh
 
-function normalize {
+window="^Crypt of the NecroDancer$"
+windowid=$(xdotool search --name "$window")
+delay=50
+
+function clearinput {
+	printf "BackSpace %.0s" {1..10} | xargs xdotool key --window $windowid --delay $delay
+}
+
+function keepdigits {
 	echo "$1" | tr -dc '0-9'
 }
 
-function paste {
-	local window="^Crypt of the NecroDancer$"
-	local delay=50
-	local windowid=$(xdotool search --name "$window")
-	local input=$(normalize "$1")
+function pasteclipboard {
+	local input=$(keepdigits "$(xclip -o)")
 	echo $input | xargs xdotool type --window $windowid --delay $delay
 }
 
-paste "$(xclip -o)"
+clearinput
+pasteclipboard
