@@ -1,20 +1,20 @@
 #!/bin/sh
 
-window="^Crypt of the NecroDancer$"
-windowid=$(xdotool search --name "$window")
-delay=50
-
-function clearinput {
-	printf "BackSpace %.0s" {1..10} | xargs xdotool key --window $windowid --delay $delay
+function pastetond {
+	local window='^Crypt of the NecroDancer$'
+	local delay=50
+	echo "$1" | xargs xdotool search --name "$window" key --delay $delay
 }
 
-function keepdigits {
-	echo "$1" | tr -dc '0-9'
+function clearinput {
+	pastetond "$(printf 'BackSpace %.0s' {1..10})"
 }
 
 function pasteclipboard {
-	local input=$(keepdigits "$(xclip -o)")
-	echo $input | xargs xdotool type --window $windowid --delay $delay
+	local clipboard=$(xclip -o)
+	local onlydigits=$(echo $clipboard | tr -dc '0-9')
+	local input=$(echo $onlydigits | sed 's/./& /g')
+	pastetond "$input"
 }
 
 clearinput
