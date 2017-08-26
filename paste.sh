@@ -12,9 +12,8 @@ function split {
 function paste {
 	local window="^Crypt of the NecroDancer$"
 	local delay=50
-	local windowid=$(xdotool search --name "$window")
 	local input=$(split $(normalize "$1"))
-	echo $input | xargs xdotool key --window $windowid --delay $delay
+	echo $input | xargs xdotool search --name "$window" key --delay $delay
 }
 
 paste "$(xclip -o)"
