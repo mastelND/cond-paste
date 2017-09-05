@@ -1,13 +1,14 @@
 #!/bin/sh
 
 function pastetond {
+	local seed="$1"
+	local delay=${2:-50}
 	local window='^Crypt of the NecroDancer$'
-	local delay=50
-	echo "$1" | xargs xdotool search --name "$window" key --delay $delay
+	echo "$seed" | xargs xdotool search --name "$window" key --delay $delay
 }
 
 function clearinput {
-	pastetond "$(printf 'BackSpace %.0s' {1..10})"
+	pastetond "$(printf 'BackSpace %.0s' {1..10})" 30
 }
 
 function pasteclipboard {
